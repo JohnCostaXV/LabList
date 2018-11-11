@@ -1,0 +1,65 @@
+{
+    "TOKEN": "",
+    "OWNER_ID": [424304428682706956],
+    "PREFIXO": [],
+    "BLACKLIST_EXTENSÕES": [
+        "fila",
+        "__pycach"
+    ],
+    "DATABASE": {
+        "URI": "",
+        "NOME": ""
+    },
+    "WEBHOOK_STATUS": "",
+    "LIMITES": {
+        "PREFIXO": 8,
+        "MAX_TENTATIVAS_CADASTRO": 3,
+        "MAX_DESCRIÇÃO_CURTA": 180,
+        "MIN_DESCRIÇÃO_CURTA": 100,
+        "VOTOS_SUGESTÃO_ACEITA": 1,
+        "VOTOS_SUGESTÃO_NEGADA": 1
+    },
+    "BIBLIOTECAS": [
+            "Discord.py", "Discord.js", "Eris", "JDA", "Discordrb", "DiscordGo",
+            "Discord.Net", "Discordia", "Sword", "Discord-rs", "Outros"
+    ],
+    "SERVIDORES": {
+        "LABNEGRO": 0,
+        "LADO NEGRO": 0
+    },
+    "CANAIS": {
+        "BOT-LOGS": 0,
+        "ADICIONAR-BOTS": 0,
+        "CODES-R2-LAB": 0,
+        "VOTOS": 0,
+        "EVENT-HORIZON": 0,
+        "COMANDOS-LAB-LIST": 0,
+        "INFO": 0,
+        "SUGESTÕES": 0,
+        "SUGESTÕES-LOGS": 0,
+        "CHAT-DEV": 0,
+        "TESTAR-BOT-PYTHON": 0,
+        "ERROS": 0
+    },
+    "CARGOS": {
+        "DEVMOD": 0,
+        "SUPERVISOR": 0,
+        "DEVHELPER": 0,
+        "COOPERADOR": 0,
+        "DEV": 0,
+        "BOTS": {
+            "Pendente": 0,
+            "Discord.py": 0, 
+            "Discord.js": 0, 
+            "Eris": 0,
+            "JDA": 0, 
+            "Discordrb": 0, 
+            "DiscordGo": 0,
+            "Discord.Net": 0, 
+            "Discordia": 0, 
+            "Sword": 0,
+            "Discord-rs": 0,
+            "Outros": 0
+        }
+    }
+}
