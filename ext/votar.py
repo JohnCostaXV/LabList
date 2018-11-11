@@ -3,12 +3,30 @@ from pymongo import DESCENDING
 from datetime import datetime, timedelta
 from random import randint
 from utils.cor import cor_aleatoria
+from asyncio import sleep
 
 import discord
 
 class Votar:
     def __init__(self, lab):
         self.lab = lab
+        lab.loop.create_task(self.lembrete())
+
+    async def lembrete(self):
+        await self.lab.wait_until_ready()
+        while not self.lab.is_closed():
+            users = self.lab.db.users.find({"lembrete_votar": True, "lembrete_enviado": False, "próximo_voto": {"$lte": datetime.now()}})
+            for _user in users:
+                user = self.lab.get_user(_user['_id'])
+                if user:
+                    try:
+                        await user.send(f"{self.lab._emojis['labacerto']} **{user.name}**, seu tempo de espera acabou! **Corra para votar no seu bot favorito!**\n**`Para desativar o recebimento dessa mensagem, digite lab-lembretevotar no servidor.`**")
+                    except:
+                        pass
+                    else:
+                        self.lab.db.users.update_one(_user, {"$set": {"lembrete_enviado": True}})
+            
+            await sleep(300)
 
     @commands.command(
         name='vote',
@@ -42,6 +60,7 @@ class Votar:
             _bot['votos_mensais'] += 1
             _bot['votos_totais'] += 1
             user['próximo_voto'] = agora + timedelta(hours=randint(20, 23), minutes=randint(1, 59))
+            user['lembrete_enviado'] = False
             user['histórico_votos'].insert(
                 0, {
                     "bot": bot.id,
@@ -114,6 +133,22 @@ class Votar:
             url=self.lab.user.avatar_url
         )
         await ctx.send(embed=em)
+
+    @commands.command(
+        name="lembretevotar",
+        aliases=['lembrete', 'votarlembrete'],
+        description="Ativa/desativa um lembrete que envia uma mensagem sempre que o cooldown do comando votar acaba.",
+        usag='lab-lembretevotar'
+    )
+    @commands.cooldown(1, 6, commands.BucketType.user)
+    async def _lembretevotar(self, ctx):
+        user = self.lab.db.users.find_one({"_id": ctx.author.id})
+        if user['lembrete_votar']:
+            self.lab.db.users.update_one({"_id": ctx.author.id}, {"$set": {"lembrete_votar": False}})
+            await ctx.send(f"{self.lab._emojis['labacerto']} **{ctx.author.name}**, você desativou o **`LEMBRETE`** e não será mais avisado de futuros votos disponíveis.")
+        else:
+            self.lab.db.users.update_one({"_id": ctx.author.id}, {"$set": {"lembrete_votar": True}})
+            await ctx.send(f"{self.lab._emojis['labacerto']} **{ctx.author.name}**, você ativou o **`LEMBRETE`** e será avisado sempre que puder usar o comando **votar** novamente.")
 
 def setup(lab):
     lab.add_cog(Votar(lab))
