@@ -2,6 +2,7 @@ from discord.ext import commands
 from pymongo import DESCENDING
 from datetime import datetime, timedelta
 from random import randint
+from utils.cor import cor_aleatoria
 
 import discord
 
@@ -52,6 +53,25 @@ class Rep:
             db.save(user)
             db.save(author)
             await ctx.send(f"{self.lab._emojis['correto']} | **{ctx.author.name}**, você deu um ponto de reputação para {member.mention}\n**Agora ele(a) possui um saldo de `{user['reps']}` pontos**.")
+
+            em = discord.Embed(
+                title=f"Deu reputação para {member}",
+                timestamp=datetime.utcnow(),
+                colour=cor_aleatoria(),
+                url=f"https://labnegro.com/",
+                description=f"**ID** do **Usuário**: `{ctx.author.id}`\n**ID** do **Helper**: `{member.id}`"
+            ).set_author(
+                name=f"{ctx.author}",
+                icon_url=ctx.author.avatar_url
+            ).set_thumbnail(
+                url=member.avatar_url
+            ).set_footer(
+                text=ctx.guild.name,
+                icon_url=ctx.guild.icon_url
+            )
+
+            logs = self.lab.get_channel(self.lab.config['CANAIS']['EVENT-HORIZON'])
+            await logs.send(embed=em)
         else:
             segundos = (proximo_rep - agora).total_seconds()
             
