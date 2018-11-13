@@ -214,11 +214,14 @@ class Atualizar:
         webhooks = await channel.webhooks()
         for webhook in webhooks:
             if webhook.user.id not in self.lab.config['OWNER_ID']:
-                sleep(5) #tempo para o webhook dos bots conseguirem enviar uma mensagem ou coisa do tipo
-                await webhook.delete()
+                await sleep(10) #tempo para o webhook dos bots conseguirem enviar uma mensagem ou coisa do tipo
+                try:
+                    await webhook.delete()
+                except:
+                    pass
 
     async def on_command(self, ctx):
-        if ctx.author.id in self.lab.config['OWNER_ID']:
+        if ctx.author.id in self.lab.config['OWNER_ID'] and ctx.command.is_on_cooldown(ctx):
             ctx.command.reset_cooldown(ctx)
 
     async def on_command_completion(self, ctx):
