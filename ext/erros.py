@@ -25,6 +25,9 @@ class Erros:
             perms = '\n'.join([f"   {self.lab._emojis['labocupado']} **`{perm.upper()}`**" for perm in error.missing_perms])
             await ctx.send(f"**{ctx.author.name}**, você precisa das seguintes permissões para poder usar o comando **`{ctx.invoked_with}`** nesse servidor:\n\n{perms}", delete_after=30)
 
+        elif isinstance(error, cmd.DisabledCommand):
+            await ctx.send(f"{self.lab._emojis['labausente']} **{ctx.author.name}**, o comando **`{ctx.invoked_with}`** está temporariamente desativado.")
+
         elif isinstance(error, cmd.CheckFailure):
             pass
 

@@ -22,6 +22,24 @@ class Dono:
         return False
 
     @commands.command(
+        name='desativarcomando',
+        aliases=['dcmd'],
+        description='Desativa um comando(até o bot ser reiniciado)',
+        usage='lab-desativarcomando <Nome do Comando>'
+    )
+    async def _desativarcomando(self, ctx, *, nome):
+        comando = self.lab.get_command(nome)
+        if not comando:
+            return await ctx.send(f"{self.lab._emojis['errado']} | **{ctx.author.name}**, não encontrei nenhum comando chamado **`{nome}`**.")
+
+        if comando.enabled:
+            comando.enabled = False
+            await ctx.send(f"{self.lab._emojis['labocupado']} **{ctx.author.name}**, você desativou o comando **`{comando.name}`**.")
+        else:
+            comando.enabled = True
+            await ctx.send(f"{self.lab._emojis['labonline']} **{ctx.author.name}**, você ativou o comando **`{comando.name}`**.")
+
+    @commands.command(
         name='resetarreps',
         description='Reseta os pontos mensais de reputação de todos os helpers',
         usage='lab-resetarreps'
