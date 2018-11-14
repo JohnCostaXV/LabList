@@ -17,7 +17,9 @@
         "MAX_DESCRIÇÃO_CURTA": 180,
         "MIN_DESCRIÇÃO_CURTA": 100,
         "VOTOS_SUGESTÃO_ACEITA": 1,
-        "VOTOS_SUGESTÃO_NEGADA": 1
+        "VOTOS_SUGESTÃO_NEGADA": 1,
+        "MAX_CARACTERES_CODIGOS": 2000,
+        "MAX_CARACTERES_NOME_COMANDO": 20
     },
     "BIBLIOTECAS": [
             "Discord.py", "Discord.js", "Eris", "JDA", "Discordrb", "DiscordGo",
@@ -30,6 +32,7 @@
     "CANAIS": {
         "BOT-LOGS": 0,
         "ADICIONAR-BOTS": 0,
+        "ADICIONAR-COMANDOS": 503940009036873728,
         "CODES-R2-LAB": 0,
         "VOTOS": 0,
         "EVENT-HORIZON": 0,
@@ -39,7 +42,9 @@
         "SUGESTÕES-LOGS": 0,
         "CHAT-DEV": 0,
         "TESTAR-BOT-PYTHON": 0,
-        "ERROS": 0
+        "ERROS": 0,
+        "CMDS-LOGS": 0,
+        "MAXADM": 0
     },
     "CARGOS": {
         "DEVMOD": 0,

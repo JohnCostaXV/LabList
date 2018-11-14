@@ -3,6 +3,7 @@ data/bem-vindo.png
 data/fonte.otf
 ext/fila.py
 ext/ban.py
+ext/reverter.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
